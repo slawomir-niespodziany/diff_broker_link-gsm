@@ -6,8 +6,8 @@
 
 using namespace std::string_literals;
 
-LinkGsm::LinkGsm() : linkReliability_{config<int>("linkReliability"s)} {                                     // reliability configured in json
-    std::cout << type() << "{"s << id() << ", linkReliability "s << linkReliability_ << "}"s << std::endl;   // log construction
+LinkGsm::LinkGsm() : linkReliability_{config<int>("linkReliability"s)} {                                      // reliability configured in json
+    std::cout << type() << "{"s << id() << ", linkReliability "s << linkReliability_ << "%}"s << std::endl;   // log construction
 }
 LinkGsm::~LinkGsm() { std::cout << "~"s << type() << "{"s << id() << "}"s << std::endl; }   // log destruction
 

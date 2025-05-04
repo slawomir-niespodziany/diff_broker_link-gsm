@@ -9,14 +9,15 @@ file(GLOB SRC_FILES src/*.cpp)
 add_library(${PROJECT_NAME} STATIC ${SRC_FILES})
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
-target_include_directories(
-    ${PROJECT_NAME}
-    PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    PRIVATE $<INSTALL_INTERFACE:include>)
+target_include_directories(${PROJECT_NAME}
+                           PUBLIC $<BUILD_LOCAL_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
 
 find_package(diff REQUIRED)
 find_package(ilink REQUIRED)
-target_link_libraries(${PROJECT_NAME} PRIVATE diff::diff $<BUILD_LOCAL_INTERFACE:ilink::ilink>)
+target_link_libraries(${PROJECT_NAME} PUBLIC $<BUILD_LOCAL_INTERFACE:diff::diff>
+                                             $<BUILD_LOCAL_INTERFACE:ilink::ilink>)
+
+add_subdirectory(test)
 
 include(GNUInstallDirs)
 set(INSTALL_CONFIGDIR ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME})
